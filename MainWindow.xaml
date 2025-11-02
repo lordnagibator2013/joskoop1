@@ -17,11 +17,13 @@
             <Button x:Name="BrushB" Content="Кисть" Margin="5" Background="{Binding BrushColor}" Click="Brush"/>
             <Button x:Name="EraserB" Content="Ластик" Margin="5" Background="{Binding BrushColor}" Click="Eraser"/>
             <Button x:Name="Reset" Content="Очистить" Margin="5" Click="Clear"/>
+            <TextBlock Text="Фигуры" Margin="5, 10, 5, 5"/>
             <TextBlock Text="Цвета" Margin="5, 10, 5, 5"/>
         </StackPanel>
 
         <Grid Grid.Column="1" Background="White">
-            <Image x:Name="DrawingSurface" 
+            <Canvas x:Name="Canvass" 
+                Background="White"
                 MouseDown="Draw_down"
                 MouseMove="Draw_move"
                 MouseUp="Draw_up"/>

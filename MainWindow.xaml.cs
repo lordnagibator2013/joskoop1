@@ -15,6 +15,8 @@ public partial class MainWindow : Window
 {
     bool isDraw = false;
     bool brush = true;
+    Color currentColor = Color.FromRgb(0, 0, 0);
+    Point point1;
     private void Error()
     {
         MessageBox.Show("ты дурачина");
@@ -34,20 +36,40 @@ public partial class MainWindow : Window
 
     private void Clear(object sender, RoutedEventArgs e)
     {
-        
+
+    }
+    
+    private void Draw(Point x1, Point x2, Color color)
+    {
+        SolidColorBrush brush = new SolidColorBrush(color);
+        Line line = new Line
+        {
+            X1 = x1.X,
+            Y1 = x1.Y,
+            X2 = x2.X,
+            Y2 = x2.Y,
+            Stroke = brush,
+            StrokeThickness = 3
+        };
+        Canvass.Children.Add(line);
     }
 
     private void Draw_down(object sender, MouseButtonEventArgs e)
     {
+        if(!brush){ return; }
         isDraw = true;
+        point1 = e.GetPosition(Canvass);
     }
 
-    private void Draw_move(object sender, RoutedEventArgs e)
+    private void Draw_move(object sender, MouseEventArgs e)
     {
-        if (isDraw == true)
+        if (!isDraw)
         {
-            isDraw = false;
+            return;
         }
+        Point point2 = e.GetPosition(Canvass);
+        Draw(point1, point2, currentColor);
+        point1 = point2;
     }
 
     private void Draw_up(object sender, MouseButtonEventArgs e)
